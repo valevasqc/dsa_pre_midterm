@@ -1,9 +1,14 @@
 from typing import Any
 
 class Node:
-    def __init__(self, data: any):
-        self.data = data
+    def __init__(self, nombre: str, artista: str, album: str):
+        self.data = {
+            "nombre": nombre,
+            "artista": artista,
+            "album": album
+        }
         self.next = None
+        self.prev = None
 
     def __repr__(self):
         return f"(DATA: {self.data} | NEXT: {self.next})"
@@ -16,7 +21,7 @@ class LinkedList:
     def __repr__(self):
         nodes = ["START"]
         for node in self:
-            nodes.append(str(node.data))
+            nodes.append(str(node.data)) # TODO: ponerlo más bonito para mostrar la info de la canción
         nodes.append("NIL")
         return "\n" + " --> ".join(nodes)
 
@@ -51,7 +56,7 @@ class LinkedList:
 
     def insert_after_node(self, element: Node, node_reference: Any):
         for current in self:
-            if current.data == node_reference:
+            if current.data["nombre"] == node_reference:
                 element.next = current.next
                 current.next = element
                 return
