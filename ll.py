@@ -13,7 +13,7 @@ class Node:
     def __repr__(self):
         return f"(DATA: {self.data} | NEXT: {self.next})"
 
-
+# TODO: agregar error handling
 class LinkedList:
     def __init__(self):
         self.start = None
@@ -43,24 +43,35 @@ class LinkedList:
 
     def insert_at_beginning(self, element: Node):
         element.next = self.start
+        element.prev = None
+        if self.start is not None:
+            self.start.prev = element
         self.start = element
 
     def insert_at_end(self, element: Node):
         if self.start is None:
             self.start = element
+            element.prev = None
             return
         current = self.start
         while current.next is not None:
             current = current.next
         current.next = element
+        element.prev = current
 
-    def insert_after_node(self, element: Node, node_reference: Any):
+    def insert_after_node(self, element: Node, node_reference: str):
         for current in self:
             if current.data["nombre"] == node_reference:
                 element.next = current.next
+                element.prev = current
+
+                if current.next is not None:
+                    current.next.prev = element
+
                 current.next = element
                 return
 
+    # TODO: arreglar delete
     def delete_node(self, element_data: Any):
         if self.start is None:
             return
