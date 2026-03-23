@@ -22,7 +22,9 @@ class LinkedList:
     def __repr__(self):
         nodes = ["START"]
         for node in self:
-            nodes.append(str(node.data))  # TODO: ponerlo más bonito para mostrar la info de la canción
+            nodes.append(
+                f"{node.data['nombre']} - {node.data['artista']} ({node.data['album']})"
+            )
         nodes.append("NIL")
         return "\n" + " --> ".join(nodes)
 
@@ -74,7 +76,6 @@ class LinkedList:
                 current.next = element
                 return
 
-    # TODO: arreglar delete
     def delete_node(self, element_data: Any):
         if self.start is None:
             return

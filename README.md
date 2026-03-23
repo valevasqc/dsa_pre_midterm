@@ -10,9 +10,9 @@ python3 demo.py
 
 ## Controles de la playlist
 
-- `n`: siguiente cancion
-- `p`: cancion anterior
+- `n`: siguiente canción
+- `p`: canción anterior
 - `q`: salir
 
-La reproduccion inicia en la primera cancion.
-La playlist no es circular: el inicio y el final son limites.
+La reproducción inicia en la primera canción.
+La playlist no es circular: el inicio y el final son límites.
