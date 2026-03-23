@@ -1,5 +1,6 @@
 from typing import Any
 
+
 class Node:
     def __init__(self, nombre: str, artista: str, album: str):
         self.data = {
@@ -21,7 +22,7 @@ class LinkedList:
     def __repr__(self):
         nodes = ["START"]
         for node in self:
-            nodes.append(str(node.data)) # TODO: ponerlo más bonito para mostrar la info de la canción
+            nodes.append(str(node.data))  # TODO: ponerlo más bonito para mostrar la info de la canción
         nodes.append("NIL")
         return "\n" + " --> ".join(nodes)
 
@@ -51,6 +52,7 @@ class LinkedList:
     def insert_at_end(self, element: Node):
         if self.start is None:
             self.start = element
+            element.next = None
             element.prev = None
             return
         current = self.start
@@ -58,6 +60,7 @@ class LinkedList:
             current = current.next
         current.next = element
         element.prev = current
+        element.next = None
 
     def insert_after_node(self, element: Node, node_reference: str):
         for current in self:
@@ -75,18 +78,22 @@ class LinkedList:
     def delete_node(self, element_data: Any):
         if self.start is None:
             return
-        if self.start.data == element_data:
+        if self.start.data["nombre"] == element_data:
             self.start = self.start.next
+            if self.start is not None:
+                self.start.prev = None
             return
-        previous = self.start
         for current in self:
-            if current.data == element_data:
-                previous.next = current.next
+            if current.data["nombre"] == element_data:
+                if current.prev is not None:
+                    current.prev.next = current.next
+                if current.next is not None:
+                    current.next.prev = current.prev
                 return
-            previous = current
 
     def search(self, element_data: Any):
         for node in self:
-            if node.data == element_data:
+            if node.data["nombre"] == element_data:
                 return node
         return None
+
